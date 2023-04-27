@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import '../global_assets/global_style.dart';
+import '../main.dart';
 
 
 class StepTwo extends StatefulWidget {
@@ -53,9 +55,7 @@ class _StepTwoState extends State<StepTwo> {
                 ),
                 Container(height: desk ? 0 : 70,),
                 GestureDetector(
-                  onTap: () {
-
-                  },
+                  onTap: () => Get.rootDelegate.toNamed(Routes.MBTI),
                   child: Contents(
                       title: '두피 타입 테스트',
                       subtitle: '두피의 상태를 문진하여 두피 성격과 두피 타입을 파악할 수 있어요.',

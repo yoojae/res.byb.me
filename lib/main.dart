@@ -1,8 +1,7 @@
-import 'dart:js';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:res_byb_me/page/diagnosis_mbti.dart';
 import 'package:res_byb_me/page/step_1_diagnosis.dart';
 import 'package:res_byb_me/page/step_2_diagnosis.dart';
 import 'package:responsive_framework/responsive_framework.dart';
@@ -14,6 +13,7 @@ void main() {
 abstract class Routes {
   static const HOME = '/';
   static const STEP2 = '/steptwo';
+  static const MBTI = '/diagnosismbti';
 }
 
 abstract class AppPages {
@@ -25,6 +25,10 @@ abstract class AppPages {
     GetPage(
       name: Routes.STEP2,
       page: () => StepTwo(),
+    ),
+    GetPage(
+      name: Routes.MBTI,
+      page: () => DiagnosisMbti(),
     ),
   ];
 }
