@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:res_byb_me/global_assets/global_style.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_framework/responsive_framework.dart';
@@ -119,7 +120,7 @@ class StepOne extends StatelessWidget {
                   height: 35,
                 ),
                 GestureDetector(
-                  onTap: () => Get.rootDelegate.toNamed(Routes.STEP2),
+                  onTap: () => context.go('/step2'),
                   child: Container(
                     width: desk ? 150 : 410,
                     height: 50,

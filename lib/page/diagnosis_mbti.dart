@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:res_byb_me/global_assets/global_style.dart';
 import 'package:res_byb_me/services/api_service.dart';
 import 'package:responsive_framework/responsive_framework.dart';
@@ -22,7 +23,8 @@ class _DiagnosisMbtiState extends State<DiagnosisMbti> {
   static const duration = const Duration(milliseconds: 100);
   static const curve = Curves.ease;
 
-  int index =0;
+
+
 
   @override
   void initState() {
@@ -57,20 +59,20 @@ class _DiagnosisMbtiState extends State<DiagnosisMbti> {
           ResponsiveVisibility(
             visible: desk ? true : false,
             child: TextButton(
-              onPressed: () {
-
-              },
+              onPressed: () => context.go('/step2'),
               child: Icon(Icons.close_rounded, color: GlobalStyle.white, size: 28,),
             ),
           ),
         ],
         elevation: 0,
         backgroundColor: desk ? GlobalStyle.green : GlobalStyle.transparent,
-        title: Text('두피 MBTI 진단', style: TextStyle(
-          color: desk ? GlobalStyle.white : GlobalStyle.black,
-          fontSize: desk ? 16 : 20,
-          fontWeight: FontWeight.bold,
-        ),),
+        title: Center(
+          child: Text('두피 MBTI 진단', style: TextStyle(
+            color: desk ? GlobalStyle.white : GlobalStyle.black,
+            fontSize: desk ? 16 : 18,
+            fontWeight: FontWeight.bold,
+          ),),
+        ),
       ),
       body: Center(
         child: Container(
@@ -93,36 +95,47 @@ class _DiagnosisMbtiState extends State<DiagnosisMbti> {
                       Row(
                         mainAxisAlignment: desk ? MainAxisAlignment.start : MainAxisAlignment.center,
                         children: [
-                          Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                                color: desk ? GlobalStyle.light_gray : GlobalStyle.transparent,
+                          ResponsiveRowColumn(
+                            layout: desk ? ResponsiveRowColumnType.ROW : ResponsiveRowColumnType.COLUMN,
+                            children: [
+                              ResponsiveRowColumnItem(
+                                  child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5),
+                                        color: desk ? GlobalStyle.light_gray : GlobalStyle.transparent,
+                                      ),
+                                      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                                      child: Text('${datum.mbtiCategory}',
+                                        style: TextStyle(
+                                          fontSize: desk ? 13 : 25,
+                                          color: desk ? GlobalStyle.white : GlobalStyle.black,
+                                        ),
+                                      )
+                                  ),
                               ),
-                              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                              child: Text('${datum.mbtiCategory}',
-                                style: TextStyle(
-                                  fontSize: desk ? 13 : 25,
-                                  color: desk ? GlobalStyle.white : GlobalStyle.black,
-                                ),
-                              )
-                          ),
-                          Container(width: 5,),
-                          Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                  color: GlobalStyle.intro_txt_gray,
+                              ResponsiveRowColumnItem(
+                                  child: Container(width: 5,),
                               ),
-                              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                              child: Text("${currentIndex + 1} / ${_datum.length} 문항",
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  color: GlobalStyle.white,
-                                ),
-                              )
+                              ResponsiveRowColumnItem(
+                                  child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5),
+                                        color: GlobalStyle.intro_txt_gray,
+                                      ),
+                                      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                                      child: Text("${currentIndex + 1} / ${_datum.length} 문항",
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                          color: GlobalStyle.white,
+                                        ),
+                                      )
+                                  ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                      Container(height: 25,),
+                      Container(height: desk ? 25 : 50,),
                       Row(
                         mainAxisAlignment: desk ? MainAxisAlignment.start : MainAxisAlignment.center,
                         crossAxisAlignment: desk ? CrossAxisAlignment.start : CrossAxisAlignment.center,
@@ -147,7 +160,8 @@ class _DiagnosisMbtiState extends State<DiagnosisMbti> {
                         ],
                       ),
                       Container(
-                        margin: EdgeInsets.only(top: 25),
+                        width: desk ? double.infinity : 600,
+                        margin: EdgeInsets.only(top: desk ? 25 : 50),
                         child: Row(
                           children: [
                             Flexible(
