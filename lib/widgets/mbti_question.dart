@@ -42,7 +42,7 @@ class Datum {
   String questionExplanation;
   QuestionType questionType;
   int questionSortNumber;
-  MbtiCategory mbtiCategory;
+  String mbtiCategory;
   List<QuestionItemArray> questionItemArray;
 
   Datum({
@@ -63,7 +63,7 @@ class Datum {
     questionExplanation: json["question_explanation"],
     questionType: questionTypeValues.map[json["question_type"]]!,
     questionSortNumber: json["question_sort_number"],
-    mbtiCategory: mbtiCategoryValues.map[json["mbti_category"]]!,
+    mbtiCategory: json["mbti_category"]!,
     questionItemArray: List<QuestionItemArray>.from(json["question_item_array"].map((x) => QuestionItemArray.fromJson(x))),
   );
 
