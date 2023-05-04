@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
+import 'package:res_byb_me/page/diagnosis_area.dart';
+import 'package:res_byb_me/page/diagnosis_condition.dart';
 import 'package:res_byb_me/page/diagnosis_mbti.dart';
+import 'package:res_byb_me/page/login/login_page.dart';
+import 'package:res_byb_me/page/start_diagnosis/start_mbti_diagnosis.dart';
 import 'package:res_byb_me/page/step_1_diagnosis.dart';
 import 'package:res_byb_me/page/step_2_diagnosis.dart';
 import 'package:responsive_framework/responsive_framework.dart';
@@ -9,7 +13,6 @@ import 'package:responsive_framework/responsive_framework.dart';
 void main() {
   runApp(const MyApp());
 }
-
 
 final GoRouter _router = GoRouter(
     routes: [
@@ -21,48 +24,34 @@ final GoRouter _router = GoRouter(
         path: '/step2',
         builder: (context, state) => StepTwo(),
       ),
+
+
+      GoRoute(
+        path: '/loginpage',
+        builder: (context, state) => LoginPage(),
+      ),
+
+
+      GoRoute(
+        path: '/startmbti',
+        builder: (context, state) => StartMbtiDiagnosis(),
+      ),
+
+      GoRoute(
+        path: '/condition',
+        builder: (context, state) => DiagnosisCondition(),
+      ),
       GoRoute(
         path: '/mbti',
         builder: (context, state) => DiagnosisMbti(),
       ),
+      GoRoute(
+        path: '/area',
+        builder: (context, state) => DiagnosisArea(),
+      ),
     ]
 );
 
-
-// abstract class Routes {
-//   static const HOME = '/';
-//   static const STEP2 = '/steptwo';
-//   static const MBTI = '/diagnosismbti';
-// }
-//
-// abstract class AppPages {
-//   static final pages = [
-//     GetPage(
-//       name: Routes.HOME,
-//       page: () => StepOne(),
-//     ),
-//     GetPage(
-//       name: Routes.STEP2,
-//       page: () => StepTwo(),
-//     ),
-//     GetPage(
-//       name: Routes.MBTI,
-//       page: () => DiagnosisMbti(),
-//     ),
-//   ];
-// }
-
-// class AppRouterDelegate extends GetDelegate {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Navigator(
-//       onPopPage: (route, result) => route.didPop(result),
-//       pages: currentConfiguration != null
-//           ? [currentConfiguration!.currentPage!]
-//           : [GetNavConfig.fromRoute(Routes.HOME)!.currentPage!],
-//     );
-//   }
-// }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);

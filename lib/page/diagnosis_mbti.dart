@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:res_byb_me/global_assets/global_style.dart';
-import 'package:res_byb_me/services/api_service.dart';
+import 'package:res_byb_me/services/mbti_api_service.dart';
 import 'package:responsive_framework/responsive_framework.dart';
-import '../widgets/mbti_question.dart';
+import 'package:res_byb_me/models/mbti_model_question.dart';
 
 class DiagnosisMbti extends StatefulWidget {
   DiagnosisMbti({Key? key}) : super(key: key);
@@ -66,172 +66,172 @@ class _DiagnosisMbtiState extends State<DiagnosisMbti> {
         ],
         elevation: 0,
         backgroundColor: desk ? GlobalStyle.green : GlobalStyle.transparent,
-        title: Center(
-          child: Text('두피 MBTI 진단', style: TextStyle(
-            color: desk ? GlobalStyle.white : GlobalStyle.black,
-            fontSize: desk ? 16 : 18,
-            fontWeight: FontWeight.bold,
-          ),),
+        title: ResponsiveVisibility(
+          visible: desk ? true : false,
+          child: Center(
+            child: Text('두피 MBTI 진단', style: TextStyle(
+              color: GlobalStyle.white,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),),
+          ),
         ),
       ),
       body: Center(
-        child: Container(
-          width: desk ? double.infinity : 1024,
-          child: PageView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            controller: _pageController,
-            onPageChanged: (index) => setState(() => currentIndex = index),
-            itemCount: _datum.length,
-            itemBuilder: (context, index) {
-              Datum datum = _datum[index];
-              return Expanded(
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 35),
-                  color: GlobalStyle.transparent,
-                  child: Column(
-                    crossAxisAlignment: desk ? CrossAxisAlignment.start : CrossAxisAlignment.center,
-                    children: [
-                      Container(height: 35,),
-                      Row(
-                        mainAxisAlignment: desk ? MainAxisAlignment.start : MainAxisAlignment.center,
-                        children: [
-                          ResponsiveRowColumn(
-                            layout: desk ? ResponsiveRowColumnType.ROW : ResponsiveRowColumnType.COLUMN,
-                            children: [
-                              ResponsiveRowColumnItem(
-                                  child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5),
-                                        color: desk ? GlobalStyle.light_gray : GlobalStyle.transparent,
+        child: PageView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+          controller: _pageController,
+          onPageChanged: (index) => setState(() => currentIndex = index),
+          itemCount: _datum.length,
+          itemBuilder: (context, index) {
+            Datum datum = _datum[index];
+            return Expanded(
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 35),
+                color: GlobalStyle.transparent,
+                child: Column(
+                  crossAxisAlignment: desk ? CrossAxisAlignment.start : CrossAxisAlignment.center,
+                  children: [
+                    Container(height: 35,),
+                    Row(
+                      mainAxisAlignment: desk ? MainAxisAlignment.start : MainAxisAlignment.center,
+                      children: [
+                        ResponsiveRowColumn(
+                          layout: desk ? ResponsiveRowColumnType.ROW : ResponsiveRowColumnType.COLUMN,
+                          children: [
+                            ResponsiveRowColumnItem(
+                                child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      color: desk ? GlobalStyle.light_gray : GlobalStyle.transparent,
+                                    ),
+                                    padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                                    child: Text('${datum.mbtiCategory}',
+                                      style: TextStyle(
+                                        fontSize: desk ? 13 : 25,
+                                        color: desk ? GlobalStyle.white : GlobalStyle.black,
                                       ),
-                                      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                                      child: Text('${datum.mbtiCategory}',
-                                        style: TextStyle(
-                                          fontSize: desk ? 13 : 25,
-                                          color: desk ? GlobalStyle.white : GlobalStyle.black,
-                                        ),
-                                      )
-                                  ),
-                              ),
-                              ResponsiveRowColumnItem(
-                                  child: Container(width: 5,),
-                              ),
-                              ResponsiveRowColumnItem(
-                                  child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5),
-                                        color: GlobalStyle.intro_txt_gray,
+                                    )
+                                ),
+                            ),
+                            ResponsiveRowColumnItem(
+                                child: Container(width: 5,),
+                            ),
+                            ResponsiveRowColumnItem(
+                                child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      color: GlobalStyle.intro_txt_gray,
+                                    ),
+                                    padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                                    child: Text("${currentIndex + 1} / ${_datum.length} 문항",
+                                      style: TextStyle(
+                                        fontSize: 13,
+                                        color: GlobalStyle.white,
                                       ),
-                                      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                                      child: Text("${currentIndex + 1} / ${_datum.length} 문항",
-                                        style: TextStyle(
-                                          fontSize: 13,
-                                          color: GlobalStyle.white,
-                                        ),
-                                      )
-                                  ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      Container(height: desk ? 25 : 50,),
-                      Row(
-                        mainAxisAlignment: desk ? MainAxisAlignment.start : MainAxisAlignment.center,
-                        crossAxisAlignment: desk ? CrossAxisAlignment.start : CrossAxisAlignment.center,
-                        children: [
-                          Flexible(
-                            flex: 1,
-                              child: Text('Q.', style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: GlobalStyle.black,
-                                fontSize: 19,
-                              ),),
-                          ),
-                          Container(width: 5,),
-                          Flexible(
-                            flex: 10,
-                            child: Text('${datum.question}', style: TextStyle(
+                                    )
+                                ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Container(height: desk ? 25 : 50,),
+                    Row(
+                      mainAxisAlignment: desk ? MainAxisAlignment.start : MainAxisAlignment.center,
+                      crossAxisAlignment: desk ? CrossAxisAlignment.start : CrossAxisAlignment.center,
+                      children: [
+                        Flexible(
+                          flex: 1,
+                            child: Text('Q.', style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: GlobalStyle.black,
                               fontSize: 19,
                             ),),
+                        ),
+                        Container(width: 5,),
+                        Flexible(
+                          flex: 10,
+                          child: Text('${datum.question}', style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: GlobalStyle.black,
+                            fontSize: 19,
+                          ),),
+                        ),
+                      ],
+                    ),
+                    Container(
+                      width: desk ? double.infinity : 600,
+                      margin: EdgeInsets.only(top: desk ? 25 : 50),
+                      child: Row(
+                        children: [
+                          Flexible(
+                            flex: 1,
+                            child: TextButton(
+                              child: Container(
+                                height: 45,
+                                decoration: BoxDecoration(
+                                  color: GlobalStyle.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [BoxShadow(
+                                   offset: Offset(0, 1),
+                                    color: GlobalStyle.light_gray.withOpacity(0.3),
+                                    blurRadius: 3.0,
+                                  )]
+                                ),
+                                child: Center(
+                                  child: Text('YES', style: TextStyle(
+                                    fontSize: 14,
+                                    color: GlobalStyle.light_gray.withOpacity(0.5),
+                                  ),),
+                                ),
+                              ),
+                              onPressed: () {
+                                _pageController.nextPage(
+                                    duration: duration,
+                                    curve: curve,
+                                );
+                              },
+                            ),
                           ),
-                        ],
-                      ),
-                      Container(
-                        width: desk ? double.infinity : 600,
-                        margin: EdgeInsets.only(top: desk ? 25 : 50),
-                        child: Row(
-                          children: [
-                            Flexible(
-                              flex: 1,
-                              child: TextButton(
-                                child: Container(
-                                  height: 45,
-                                  decoration: BoxDecoration(
+                          Flexible(
+                            flex: 1,
+                            child: TextButton(
+                              child: Container(
+                                height: 45,
+                                decoration: BoxDecoration(
                                     color: GlobalStyle.white,
                                     borderRadius: BorderRadius.circular(10),
                                     boxShadow: [BoxShadow(
-                                     offset: Offset(0, 1),
+                                      offset: Offset(0, 1),
                                       color: GlobalStyle.light_gray.withOpacity(0.3),
                                       blurRadius: 3.0,
                                     )]
-                                  ),
-                                  child: Center(
-                                    child: Text('YES', style: TextStyle(
-                                      fontSize: 14,
-                                      color: GlobalStyle.light_gray.withOpacity(0.5),
-                                    ),),
-                                  ),
                                 ),
-                                onPressed: () {
-                                  _pageController.nextPage(
-                                      duration: duration,
-                                      curve: curve,
-                                  );
-                                },
-                              ),
-                            ),
-                            Flexible(
-                              flex: 1,
-                              child: TextButton(
-                                child: Container(
-                                  height: 45,
-                                  decoration: BoxDecoration(
-                                      color: GlobalStyle.white,
-                                      borderRadius: BorderRadius.circular(10),
-                                      boxShadow: [BoxShadow(
-                                        offset: Offset(0, 1),
-                                        color: GlobalStyle.light_gray.withOpacity(0.3),
-                                        blurRadius: 3.0,
-                                      )]
-                                  ),
-                                  child: Center(
-                                    child: Text('NO', style: TextStyle(
-                                      fontSize: 14,
-                                      color: GlobalStyle.light_gray.withOpacity(0.5),
-                                    ),),
-                                  ),
+                                child: Center(
+                                  child: Text('NO', style: TextStyle(
+                                    fontSize: 14,
+                                    color: GlobalStyle.light_gray.withOpacity(0.5),
+                                  ),),
                                 ),
-                                onPressed: () {
-                                  _pageController.nextPage(
-                                    duration: duration,
-                                    curve: curve,
-                                  );
-                                },
                               ),
+                              onPressed: () {
+                                _pageController.nextPage(
+                                  duration: duration,
+                                  curve: curve,
+                                );
+                              },
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
+                    ),
 
-                    ],
-                  )
-                ),
-              );
-            },
-          ),
+                  ],
+                )
+              ),
+            );
+          },
         ),
       ),
     );

@@ -42,9 +42,7 @@ class _StepTwoState extends State<StepTwo> {
                   ),
                 ),
                 GestureDetector(
-                  onTap: () {
-
-                  },
+                  onTap: () => context.go('/condition'),
                   child: Contents(
                       title: '두피 건강 테스트',
                       subtitle: '문진을 통해 유전적 요인, 생활 습관, 스트레스, 두피 타입 등을 파악하여 지금 두피의 상태가 어떤지 알아볼 수 있어요.',
@@ -56,7 +54,7 @@ class _StepTwoState extends State<StepTwo> {
                 ),
                 Container(height: desk ? 0 : 70,),
                 GestureDetector(
-                  onTap: () => context.go('/mbti'),
+                  onTap: () => context.go('/startmbti'),
                   child: Contents(
                       title: '두피 타입 테스트',
                       subtitle: '두피의 상태를 문진하여 두피 성격과 두피 타입을 파악할 수 있어요.',
@@ -68,9 +66,7 @@ class _StepTwoState extends State<StepTwo> {
                 ),
                 Container(height: desk ? 0 : 70,),
                 GestureDetector(
-                  onTap: () {
-
-                  },
+                  onTap: () => context.go('/area'),
                   child: Contents(
                       title: '두피 면적 테스트',
                       subtitle: '정수리 사진을 통해 바야바즈가 두피의 면적을 파악해줘요. 간편하고 쉽게 진단할 수 있어요.',
