@@ -7,7 +7,16 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Text('login page'),
+      body: Column(
+        children: [
+          Text('로그인 페이지'),
+          GestureDetector(
+            onTap: () {
+
+            },
+          )
+        ],
+      ),
     );
   }
 }

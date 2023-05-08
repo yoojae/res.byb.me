@@ -9,6 +9,7 @@ class DiagnosisMbti extends StatefulWidget {
   DiagnosisMbti({Key? key}) : super(key: key);
 
 
+
   @override
   State<DiagnosisMbti> createState() => _DiagnosisMbtiState();
 }
